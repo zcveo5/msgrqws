@@ -11,22 +11,15 @@ import sys
 import tkinter
 import os
 import time
+
+from data.lib.encrypting import *
 from data.lib.types_adv import SupportRead
 
 ui_module = None
 app = None
 
-try:
-    with open('./data/logs/core.log', 'w'):
-        pass
-except FileNotFoundError:
-    os.mkdir('./data/logs')
-    with open('./data/logs/core.log', 'w'):
-        pass
-
 def print_adv(v):
     print(f'[core.py]{v}')
-    open('./data/logs/core.log', 'a', errors='replace').write(f'[core.py]{v}\n')
 
 
 class Config:
@@ -76,36 +69,6 @@ class SConfig:
         return self.dct[item]
 
 
-class NConfig:
-    """Config. Supports partitions"""
-    def __init__(self, fl: TextIO):
-        self.conf = fl.read()
-
-    def load(self):
-        decoded = {}
-        tmp = self.conf.split('#$#$SER')
-        for i in tmp:
-            i_sp = i.split('\n')
-            i_sp_w = i_sp.copy()
-            i_sp_w.pop(0)
-            decoded.update({i_sp[0]: '\n'.join(i_sp_w)})
-        for i in decoded:
-            decoded[i] = decoded[i][0:len(decoded[i]) - 1]
-        try:
-            decoded.pop('')
-        except KeyError:
-            pass
-        return decoded
-
-    @staticmethod
-    def dump(conf):
-        coded = ''
-        for i in conf:
-            coded += f'#$#$SER{i}\n'
-            coded += conf[i] + '\n'
-        return coded
-
-
 class SNConfig:
     """NConfig. Works only with strings"""
     def __init__(self, fl: str):
@@ -113,26 +76,26 @@ class SNConfig:
 
     def load(self):
         decoded = {}
-        tmp = self.conf.split('#$#$SER')
-        for i in tmp:
-            i_sp = i.split('\n')
-            i_sp_w = i_sp.copy()
-            i_sp_w.pop(0)
-            decoded.update({i_sp[0]: '\n'.join(i_sp_w)})
-        for i in decoded:
-            decoded[i] = decoded[i][0:len(decoded[i]) - 1]
-        try:
-            decoded.pop('')
-        except KeyError:
-            pass
+        serializes = self.conf.split('Serialize:')
+
+        for ser in serializes:
+            lines = ser.split('\n')
+            ser_name = lines[0]
+            data = ''.join(lines[1::])
+            data = dec_content_ord2(data)
+            decoded[ser_name] = data
+
+        decoded.pop('', None)
+
         return decoded
 
     @staticmethod
     def dump(conf):
         coded = ''
         for i in conf:
-            coded += f'#$#$SER{i}\n'
-            coded += conf[i] + '\n'
+            coded += f'Serialize:{i}\n'
+            coded += enc_content_ord2(conf[i]) + '\n'
+
         return coded
 
 
@@ -156,6 +119,9 @@ class Locale:
         else:
             self.lc_dct = conf
         self.conf = conf
+
+    def __contains__(self, item):
+        return item in self.lc_dct
 
     def __getitem__(self, item):
         if item in self.lc_dct:
@@ -184,16 +150,34 @@ def plugin_info():
              "BTAEML Team (BebraTech subdivision) 2025")
 
 
-def load_theme(theme_load: SupportRead):
+def load_theme(theme_load: SupportRead | str):
     """Loads theme from special file"""
     theme = {}
-    temp = theme_load.read().split('\n')
+    if isinstance(theme_load, str):
+        temp = theme_load.split('\n')
+    else:
+        temp = theme_load.read().split('\n')
     for i in temp:
-        theme.update({i.split('=')[0]: i.split('=')[1]})
-
-    def_bg = theme['main_color']
-    def_fg = theme['secondary_color']
-    def_font = theme['font'].split()
+        try:
+            if '=' in i:
+                theme.update({i.split('=')[0]: i.split('=')[1]})
+        except IndexError as _ex:
+            _ex.add_note(f'Error decoding {i!r}')
+            raise _ex
+    try:
+        def_bg = theme['main_color']
+        def_fg = theme['secondary_color']
+        def_font = theme['font'].split()
+    except KeyError:
+        try:
+            def_bg = theme['main']
+            def_fg = theme['fg']
+            def_font = theme['font'].split()
+        except KeyError:
+            def_bg = '#111111'
+            def_fg = '#ffffff'
+            def_font = 'TkDefaultFont 12'
+            print(f'[Theme loader] Loaded DCT {theme} doesnt have required keys: main_color/main, secondary_color/fg, font, DCT Loaded from {repr(temp)} (lines)')
     return def_bg, def_fg, def_font
 
 

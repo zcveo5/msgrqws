@@ -59,7 +59,10 @@ def new_chat(name):
 
 def private_msgs():
     """Returns copy of private_msgs variable"""
-    return DctPlus(_private_msgs.copy())
+    try:
+        return DctPlus(_private_msgs.copy())
+    except NameError:
+        return {}
 
 
 def _auth():
@@ -128,6 +131,7 @@ class Chat:
                 if recv_eval['type'] == 'online_list':
                     online_list = recv_eval['answer']
             except (NameError, SyntaxError):
+                print(f'Received MSG {recv}')
                 if 'PRIVATE: ' not in recv:
                     _msgs.append(recv)
                 if 'PRIVATE: ' in recv:

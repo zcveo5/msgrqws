@@ -1,5 +1,5 @@
 #Start
-app_root = None # used for communicating plugin --> app. In loaded app, contains all methods / classes and other from msgr.py, dynamicly updated.
+app_root = None # used for communicating plugin --> app. In loaded app, contains all methods / classes and other from msgr.py, dynamically updated.
 class Plugin:
     @staticmethod
     def give_data(v):

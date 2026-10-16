@@ -1,1 +1,1 @@
-{"name": "bypass_server", "file": "mod", "class": "Main", "state": "False", "description": "passes server"}
+{"name": "bypass_server_connect", "file": "mod", "class": "Enter plugin main_class", "state": "True"}

@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 import traceback
 from json import JSONDecodeError
 
@@ -179,7 +180,12 @@ elif cmd == 'count-strings':
         print(f'{_file}{' '*(70-len(_file))}{c}')
 
     print(f'\n{' '*10} \ {all_c}')
-
+elif cmd == 'get-sargv':
+    fl = open(input('name: '), encoding='utf-8').read()
+    for i in fl.split('\n'):
+        if ' in sys.argv' in i and 'for' not in i:
+            _a = i[i.find("'")+1:i.rfind("'")]
+            print(f'{_a}')
 
 else:
     print('Unknown command')

@@ -1,1 +1,81 @@
-{"a_compatability_tweak.py": {"state": "False"}, "encrypted_msgs.py": {"state": "True"}, "terminal.py": {"state": "True"}, "list_of_tweaks.py": {"state": "False"}, "trach.py": {"state": "False"}}
+{
+    "a_compatability_tweak.py": {
+        "state": true
+    },
+    "encrypted_msgs.py": {
+        "state": false
+    },
+    "list_of_tweaks.py": {
+        "state": true
+    },
+    "login_tweaks.py": {
+        "state": true
+    },
+    "log_read.py": {
+        "state": false
+    },
+    "monitor_system_resoures.py": {
+        "state": false
+    },
+    "remove_debug_from_settings.py": {
+        "state": false
+    },
+    "a_retrun_popups.py": {
+        "state": true
+    },
+    "settings_reloader.py": {
+        "state": true
+    },
+    "taskbar_for_popups.py": {
+        "state": false
+    },
+    "terminal.py": {
+        "state": true
+    },
+    "trach.py": {
+        "state": false
+    },
+    "utility_tweaks.py": {
+        "state": false
+    },
+    "z_manage_tweaks_from_settings.py": {
+        "state": true
+    },
+    "__pycache__": {
+        "state": false
+    },
+    "y_manage_tweaks_from_settings.py": {
+        "state": true
+    },
+    "z_list_of_tweaks.py": {
+        "state": true
+    },
+    "better_ui.py": {
+        "state": true
+    },
+    "enable_user_repo": false,
+    "a_better_except_hook.py": {
+        "state": false
+    },
+    "a_logging_not_print.py": {
+        "state": false
+    },
+    "respring_tweak.py": {
+        "state": false
+    },
+    "qws_protocols.py": {
+        "state": false
+    },
+    "a_utility_tweaks.py": {
+        "state": false
+    },
+    "ai_bridge.py": {
+        "state": false
+    },
+    "base_data_editor.py": {
+        "state": false
+    },
+    "uui_tweak.py": {
+        "state": false
+    }
+}

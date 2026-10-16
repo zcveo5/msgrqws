@@ -1,124 +1,64 @@
-[ STDOUT ] ~ LOG STARTED ~
-[ STDOUT ][loader][info] launcher&exception hook v.0
-[ STDOUT ][loader][info] win release 10
-[ STDOUT ] - ~ * PROGRAM * ~ - 
-[ STDOUT ][msgr.py]MSGR QW BY BEBRA TECH (C) 2023 - 2025
-[ STDOUT ][msgr.py][info] init window and vars
-[ STDOUT ][ui.py][win None] creating widget load_lbl
-[ STDOUT ]load_lbl is already created
-[ STDOUT ][ui.py][load_lbl] build place
-[ STDOUT ][ui.py][win None] creating widget loading_pb
-[ STDOUT ][ui.py][loading_pb] build place
-[ STDOUT ][msgr.py][info] created loading screen
-[ STDOUT ][ui.py][win None] creating widget exit_button
-[ STDOUT ][ui.py][exit_button] build place
-[ STDOUT ][ui.py][win None] creating widget action_load
-[ STDOUT ][ui.py][action_load] build place
-[ STDOUT ][msgr.py][info] created loading_screen buttons
-[ STDOUT ][msgr.py][info] inited vars and ui-elements
-[ STDOUT ][msgr.py][info] loading data.nc
-[ STDOUT ][msgr.py][info] loaded
-[ STDOUT ][msgr.py][info] setting SCREEN_SETTINGS
-[ STDOUT ]`````````````````````````````[<jailbreak.ModWin object .>], 1.4
-[ STDOUT ][msgr.py][info] loading locale
-[ STDOUT ][msgr.py][info] locale_fl locale/ru/locale.cfg
-[ STDOUT ][msgr.py][info] language ru
-[ STDOUT ]$JB Loading Tweaks...
-[ STDOUT ]$JB Running as msgr
-[ STDOUT ]$JB Detected a_compatability_tweak.py
-[ STDOUT ]$JB Detected encrypted_msgs.py
-[ STDOUT ]$JB Detected list_of_tweaks.py
-[ STDOUT ]$JB Detected login_tweaks.py
-[ STDOUT ]$JB Detected log_read.py
-[ STDOUT ]$JB Detected remove_debug_from_settings.py
-[ STDOUT ]$JB Detected settings_reloader.py
-[ STDOUT ]$JB Detected taskbar_for_popups.py
-[ STDOUT ]$JB Detected terminal.py
-[ STDOUT ]$JB Detected trach.py
-[ STDOUT ]$JB Detected utility_tweaks.py
-[ STDOUT ]====== EXECUTING ======
-[ STDOUT ]$JB Executing encrypted_msgs.py 
-[ STDOUT ]# Thanks for use JBEM #
-[ STDOUT ]$JB Executing login_tweaks.py (!)
-[ STDOUT ]$JB Executing log_read.py (!)
-[ STDOUT ]# In Non-legacy mode, log_read is not needed #
-[ STDOUT ]$JB Executing remove_debug_from_settings.py (!)
-[ STDOUT ]$JB Executing settings_reloader.py (!)
-[ STDOUT ]$JB Executing taskbar_for_popups.py (!)
-[ STDOUT ]$JB Executing terminal.py 
-[ STDOUT ]$JB Executing utility_tweaks.py (!)
-[ STDOUT ]$JB Tweaks Loaded!
-[ STDOUT ][msgr.py][info] init theme
-[ STDOUT ][msgr.py][info] loading theme hh
-[ STDOUT ][msgr.py][info] setup theme for loading screen
-[ STDOUT ][msgr.py][info] init data.nc variables
-[ STDOUT ][msgr.py][info] upa completed
-[ STDOUT ][msgr.py][info] servers selected
-[ STDOUT ][msgr.py][info] login completed
-[ STDOUT ][msgr.py][info] connecting to servers
-[ STDOUT ][msgr.py][info] connecting to account server
-[ STDOUT ][msgr.py]bt data
-[ STDOUT ][msgr.py][info] connecting to chat server
-[ STDOUT ][info] Servers connection Completed
-[ STDOUT ][msgr.py][info] loading plugins
-[ STDOUT ][msgr.py][warning] not detected plugin_api module
-[ STDOUT ][msgr.py][info] init theme
-[ STDOUT ][msgr.py][info] loading theme hh
-[ STDOUT ][msgr.py][info] finishing
-[ STDOUT ][ui.py][win None] destroying all widgets
-[ STDOUT ][ui.py][win None] Destroying: load_lbl
-[ STDOUT ][ui.py][load_lbl] load_lbl destroyed
-[ STDOUT ][ui.py][win None] Destroying: loading_pb
-[ STDOUT ][ui.py][loading_pb] loading_pb destroyed
-[ STDOUT ][ui.py][win None] Destroying: exit_button
-[ STDOUT ][ui.py][exit_button] exit_button destroyed
-[ STDOUT ][ui.py][win None] Destroying: action_load
-[ STDOUT ][ui.py][action_load] action_load destroyed
-[ STDOUT ]`````````````````````````````[<jailbreak.ModWin object .>], 1.4
-[ STDOUT ][ui.py][win None] creating widget chat_select
-[ STDOUT ][msgr.py][info] ===================== LOADING CHAT SELECT
-[ STDOUT ][msgr.py][info] loading theme hh
-[ STDOUT ][ui.py][chat_select] chat_select destroyed
-[ STDOUT ][ui.py][win None] creating widget chat_select
-[ STDOUT ][msgr.py][info] ===================== LOADING CHAT SELECT
-[ STDOUT ][msgr.py][info] loading theme hh
-[ STDOUT ][ui.py][win None] destroying all widgets
-[ STDOUT ][ui.py][win None] Destroying: chat_select
-[ STDOUT ][ui.py][chat_select] chat_select destroyed
-[ STDOUT ]Loaded!
-[ STDOUT ]`````````````````````````````[<jailbreak.ModWin object .>], 1.4
-[ STDOUT ][ui.py][win None] creating widget chat_select
-[ STDOUT ][msgr.py][info] ===================== LOADING CHAT SELECT
-[ STDOUT ][msgr.py][info] loading theme hh
-[ STDOUT ]nastroyki
-[ STDOUT ][ui.py][chat_select] chat_select destroyed
-[ STDOUT ][ui.py][win None] creating widget chat_select
-[ STDOUT ][msgr.py][info] ===================== LOADING CHAT SELECT
-[ STDOUT ][msgr.py][info] loading theme hh
-[ STDOUT ][msgr.py][info] main thread started
-[ STDOUT ][msgr.py][info] work - true
-[ STDOUT ][msgr.py][info] starting crt
-[ STDOUT ][msgr.py][info] started
-[ STDOUT ]nastroyki
-[ STDOUT ][ui.py][chat_select] chat_select destroyed
-[ STDOUT ][ui.py][win None] creating widget chat_select
-[ STDOUT ][msgr.py][info] ===================== LOADING CHAT SELECT
-[ STDOUT ][msgr.py][info] loading theme hh
-[ STDOUT ][info] READY
-[ STDOUT ][msgr.py][info] successful start with reinit_ui_counter = 5
-[ STDOUT ]$JB Final mainloop
-[ STDOUT ][ui.py][win None] destroying all widgets
-[ STDOUT ][ui.py][win None] Destroying: chat_select
-[ STDOUT ][ui.py][chat_select] chat_select destroyed
-[ STDOUT ]nastroyki
-[ STDOUT ]Hello Penis
-[ STDOUT ]unauthorized quit n 1, lopping
-[ STDOUT ][msgr.py][info] exited with reinit_ui_counter = 5
-[ STDOUT ][msgr.py][info] stopping program
-[ STDOUT ][msgr.py][info] shutdown all threads
-[ STDOUT ][msgr.py][info] num: 0
-[ STDOUT ][msgr.py][info] num: 1
-[ STDOUT ][msgr.py][info] disconnecting from servers
-[ STDOUT ][msgr.py][info] backup data.nc and base_data
-[ STDOUT ][msgr.py][info] finish
-[ STDOUT ]exiting...
+[34m[INFO     : 16:57:23] [[]                            ] [info] loaded ncthemes dict_keys(['[White]', '[Black]', '[Bee]', '[123]'])[0m
+[90m[DEBUG    : 16:57:23] [[]                            ] ('winnative', 'clam', 'alt', 'default', 'classic', 'vista', 'xpnative')[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] init window and vars[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] created loading screen[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] created loading_screen buttons[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] inited vars and ui-elements[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] loading data.nc[0m
+[90m[DEBUG    : 16:57:23] [[]                            ] Modern [CCUSERSET][0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] loaded[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] loading locale[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] locale_fl locale/en/locale.cfg[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] language en[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] init theme[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] setup theme for loading screen[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] init data.nc variables[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] upa completed[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] servers selected[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] login completed[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] connecting to servers[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] connecting to account server[0m
+[31m[ERROR    : 16:57:23] [[]                            ] [er] [PassServers] connection "refused"
+Traceback (most recent call last):
+  File "./msgr.py", line 1989, in <module>
+    user = auth.User(username, password, bt_server.split(':')[0], int(bt_server.split(':')[1]))
+  File "C:\Users\zcveo\Desktop\anything\MSGR\msgr_remake\data\lib\connect\auth.py", line 18, in __init__
+    connect(host, port)
+    ~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\zcveo\Desktop\anything\MSGR\msgr_remake\data\NewJBTweaks\PassServers.py", line 22, in w
+    raise exc
+ConnectionRefusedError: [PassServers] connection "refused"
+[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] connecting to chat server[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] Servers connection Completed[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] BTAEML LOADED[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] loading plugins[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] completed[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] init theme[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] fishing[0m
+[90m[DEBUG    : 16:57:23] [[]                            ] exec startup action (loader.py)[0m
+[90m[DEBUG    : 16:57:23] [[]                            ] exec startup action (--force-start)[0m
+[31m[ERROR    : 16:57:23] [[]                            ] [error] Not Connected to servers, unable to use any network functions[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] main thread started[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] work - true[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] starting crt[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] started[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] READY[0m
+[34m[INFO     : 16:57:23] [[]                            ] [info] successful start with reinit_ui_counter = 1[0m
+[34m[INFO     : 16:57:44] [[]                            ] [info] exited with reinit_ui_counter = 1[0m
+[34m[INFO     : 16:57:44] [[]                            ] [info] stopping program[0m
+[34m[INFO     : 16:57:44] [[]                            ] [info] shutdown all threads[0m
+[34m[INFO     : 16:57:44] [[]                            ] [info] disconnecting from servers[0m
+[34m[INFO     : 16:57:44] [[]                            ] [info] backup data.nc and base_data[0m
+[90m[DEBUG    : 16:57:44] [[]                            ] Dump NCThemes {'[White]': 'main=white\nfg=black\nfont=Consolas 12', '[Black]': 'main=black\nfg=white\nfont=Consolas 12', '[Bee]': 'main=black\nfg=yellow\nfont=Consolas 12', '[123]': 'main=#24150f\nfg=#d96b27\nfont=Consolas 9'}[0m
+[34m[INFO     : 16:57:44] [[]                            ] [info] finish[0m
+anceled[0m
+[32m[Tweak][8b5fLibSettings] OVERRIDE bb <SettingsElement 'Button' 'F_UI BBT'> -> <SettingsElement 'Button' 'F_UI BBT'>[0m
+[32m[Tweak][8b5fLibSettings] Created bb <SettingsElement 'Button' 'BBRecreated-1'>[0m
+[32m[Tweak][8b5fLibSettings] Created bb <SettingsElement 'Button' 'BBRecreated-2'>[0m
+[32m[Tweak][8b5fLibSettings] Created bb <SettingsElement 'Button' 'BBRecreated-3'>[0m
+[32m[Tweak][8b5fLibSettings] OVERRIDE bb <SettingsElement 'Button' 'BBRecreated-4'> -> None[0m
+Flushing!
+[32m[Tweak][0db2LibTweaksInfo] Saving logs in C:\Users\zcveo\Desktop\anything\MSGR\msgr_remake\data\NewJBTweaks\LTI_Dump[0m
+[32m[Tweak][0db2LibTweaksInfo] Saved[0m
+[35;1m[Jailbreak] Saved jaildata[0m

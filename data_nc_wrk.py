@@ -1,4 +1,4 @@
-# encoding: windows-1251
+# encoding: utf-8
 import json
 import os
 import sys
@@ -10,10 +10,10 @@ from data.lib.utils2 import JsonObject
 base_conf = json.load(open('./data/base_data.json', 'r'))
 try:
     data_nc_addr = 'DATA.NC'
-    data = open('./data/DATA.NC', 'r', encoding='windows-1251').read()
+    data = open('./data/DATA.NC', 'r', encoding='utf-8').read()
 except FileNotFoundError:
-    data_nc_addr = input("data.nc to open")
-    data = open(f'./data/{data_nc_addr}', 'r', encoding='windows-1251').read()
+    data_nc_addr = base_conf['LOAD_NC']
+    data = open(f'./data/{data_nc_addr}', 'r', encoding='utf-8').read()
 try:
     print(decrypt(data, eval(base_conf['CC'])))
 except Exception as e:
@@ -21,7 +21,7 @@ except Exception as e:
 d = ''
 while d != 'exit':
     try:
-        d = input('c: ')
+        d = 'gui' #input('c: ')
     except KeyboardInterrupt:
         print('\nKeyboardInterrupt')
         sys.exit()
@@ -32,7 +32,7 @@ while d != 'exit':
 CC_VERSIONS:msgr.py$%msgr_up.py
 
 """
-        open('./data/DATA.NC', 'w', encoding='windows-1251').write(encrypt(datas, eval(base_conf['CC'])))
+        open('./data/DATA.NC', 'w', encoding='utf-8').write(encrypt(datas, eval(base_conf['CC'])))
     elif d == 'cc':
         base_conf['CC'] = str(generate_salt())
         json.dump(base_conf, JsonObject(open('./data/base_data.json', 'w')))
@@ -49,13 +49,13 @@ CC_VERSIONS:msgr.py$%msgr_up.py
     elif d == 'gui':
         def data_nc_editor():
             def save():
-                with open(f'./data/{data_nc_addr}', 'w', encoding='windows-1251') as nc_file:
+                with open(f'./data/{data_nc_addr}', 'w', encoding='utf-8') as nc_file:
                     nc_file.write(encrypt(txt.get("0.0", tk.END), eval(cc)))
-                open(f'./data/{data_nc_addr}', 'w', encoding='windows-1251').write(encrypt(txt.get("0.0", tk.END), eval(base_conf['CC'])))
+                open(f'./data/{data_nc_addr}', 'w', encoding='utf-8').write(encrypt(txt.get("0.0", tk.END), eval(base_conf['CC'])))
 
             def load_data_nc():
                 txt.delete("0.0", tk.END)
-                txt.insert("0.0", decrypt(open(f'./data/{data_nc_addr}', 'r').read(), eval(cc)))
+                txt.insert("0.0", decrypt(open(f'./data/{data_nc_addr}', 'r', encoding='utf-8').read(), eval(cc)))
 
             def raw():
                 txt.delete("0.0", tk.END)
@@ -79,3 +79,4 @@ CC_VERSIONS:msgr.py$%msgr_up.py
 
 
         data_nc_editor()
+        exit()

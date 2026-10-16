@@ -22,11 +22,12 @@ def pp(*args, **kwargs):
 ''')
         output.update()
         output.configure(state='disabled')
-    except tk.TclError:
+    except Exception as _ex:
+        print(f'[terminal] exception at print {_ex}')
         pass
 
 
-def execute(event):
+def execute():
     def _exec(source):
         code = """
 print = pp
@@ -37,26 +38,26 @@ input = ask_for_input\n""" + source
         except Exception as _ex:
             pp(f'Traceback received while executing:\n{traceback.format_exc()}')
 
-    cmd = event.widget.get().split()
+    cmd = entry.get("0.0", 'end').split()
     if cmd[0] == '$local':
         _exec(' '.join(cmd[1::]))
     elif cmd[0] == '$file':
         _exec(open(f'{cmd[1]}', 'r').read())
     else:
-        pp(f'Unknown command {cmd[0]}.\nCommands:\n$local executes code locally (exec)\n$file executes file (exec(open))')
+        _exec(' '.join(cmd[1::]))
+        #pp(f'Unknown command {cmd[0]}.\nCommands:\n$local executes code locally (exec)\n$file executes file (exec(open))')
 
 
 terminal = tk.Tk()
 terminal.resizable(True, False)
-output = tk.Text(terminal)
+output = tk.Text(terminal, height=12)
 output.pack(fill='both')
 output.configure(state='disabled')
-entry = tk.Entry(terminal, width=50)
+entry = tk.Text(terminal, width=50, height=12)
+pp('Terminal')
 entry.pack(fill='both')
-entry.bind('<Return>', execute)
+tk.Button(terminal, text='Execute', command=execute).pack(expand=1)
 
-if __name__ == '__main__':
-    terminal.mainloop()
-else:
-    main.tk_thread(terminal.update, 100)
+pp('For MSGR-QW (Jailbreak)')
+main.tk_thread(terminal.update, 100)
 

@@ -1,38 +1,57 @@
-import tkinter as tk
+from tkinter import *
 
 
-class DragManager:
-    def __init__(self, widget):
-        self.widget = widget
-        self.drag_start_x = 0
-        self.drag_start_y = 0
+def edit_dictionary(master, dct, on_save):
+    fr = Frame(master)
 
-        widget.bind("<Button-1>", self.on_drag_start)
-        widget.bind("<B1-Motion>", self.on_drag_move)
+    _entries = Frame(fr)
 
-    def on_drag_start(self, event):
-        self.drag_start_x = event.x
-        self.drag_start_y = event.y
+    def _edit_var(var, callback, *args):
+        def wrapper(*_):
+            callback(var.get(), *args)
+        return wrapper
 
-        # Визуальный фидбек
-        #self.widget.config(relief=tk.SUNKEN)
+    def _val(val, key):
+        print(key, val)
+        dct[key] = val
 
-    def on_drag_move(self, event):
-        # Вычисляем новую позицию ОТНОСИТЕЛЬНО окна
-        x = self.widget.winfo_x() + (event.x - self.drag_start_x)
-        y = self.widget.winfo_y() + (event.y - self.drag_start_y)
+    def ask_key(callback):
+        def _ret(_):
+            callback(e.get())
+            e.destroy()
+        e = Entry(_entries)
+        e.bind('<Return>', _ret)
+        e.pack()
 
-        # Плавное перемещение БЕЗ пересоздания
-        self.widget.place(x=x, y=y)
+    def create_fr(_k, _v):
+        _w = Frame(_entries)
+
+        entry_key = Label(_w, text=_k)
+        entry_key.pack(side='left')
+
+        _value_var = StringVar(value=f'{_v}')
+        _value_var.trace_add('write', _edit_var(_value_var, _val, k))
+        entry_value = Entry(_w, textvariable=_value_var)
+        entry_value.variable = _value_var
+        entry_value.value_type = type(_v)
+        entry_value.pack(side='left')
+
+        _w.pack(fill='x')
+
+    _entries.pack()
+
+    for k, v in dct.items():
+        create_fr(k, v)
+
+    Button(fr, text='Save', command=lambda: on_save(dct)).pack()
+    Button(fr, text='Add', command=lambda: ask_key(lambda _k: create_fr(_k, ''))).pack()
+
+    return fr
 
 
-# Использование
-root = tk.Tk()
-frame = tk.Label(text='Hi')
-frame.place(x=50, y=50)
+root = Tk()
 
-# Применяем менеджер перемещения
-DragManager(frame)
+w = edit_dictionary(root, {'hello': 'world'}, lambda d: print(d))
+w.pack()
 
-root.geometry("400x300")
 root.mainloop()

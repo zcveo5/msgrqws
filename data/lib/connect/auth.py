@@ -26,7 +26,7 @@ class User:
             dats = login(self.username, self.password)
             return dats
         else:
-            return True, {}
+            return {}
 
     def update_personal_config(self, data: list[str]):
         update_personal_conf(self.username, data)
@@ -79,17 +79,7 @@ def raw_request(req: dict) -> str:
 
 def login(username, password):
     answer = eval(raw_request({'username': username, 'password': password}))
-    if answer['status'] != 'ok':
-        return False, answer
-    if answer['answer'] == 'blocked':
-        return True, {'status': 'error', 'answer': 'global block'}
-    if password == answer['answer']['password']:
-        if answer['status'] != 'ok':
-            return False, answer
-        else:
-            return True, answer
-    else:
-        return False, {'status': 'error', 'answer': 'Incorrect password'}
+    return answer
 
 
 def update_personal_conf(username, data):

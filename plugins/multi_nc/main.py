@@ -5,6 +5,7 @@ import tkinter as tk_
 from tkinter import ttk
 from tkinter.messagebox import showerror
 import data.lib.ui as btaeui
+from data.lib.ui import Popup
 
 glb_msgr = None
 settings_orig = None
@@ -12,6 +13,12 @@ SettingsModClass = None
 side = None
 
 root_path_plug = os.path.dirname(__file__).replace('\\'[0:1], '/')
+
+
+def _init():
+    global settings_orig
+    settings_orig = glb_msgr.Settings()
+    glb_msgr.Settings = SettingsModClass
 
 class Plugin:
     @staticmethod
@@ -34,11 +41,11 @@ class Plugin:
             #                x=5, y=165, anchor='w')
 
         SettingsModClass = SettingsMod
-        side = Side(glb_msgr.movable_lbl, [glb_msgr.default_bg, glb_msgr.default_fg, ':'.join(glb_msgr.font_theme)], title='Multi NC Menu')
+        side = Side()
 
     @staticmethod
     def execute():
-        main()
+        _init()
 
 def create_instance(name):
     if os.path.exists(f'{root_path_plug}/ncs/{name}.nc'):
@@ -76,31 +83,18 @@ def load_instance(event):
     i.winfo_children()[0].destroy()
     glb_msgr.backup_data_nc = False
 
-class Side(btaeui.SidePanel):
-    def _create_base(self):
-        self.create(btaeui.Label(), x=-100, y=-100, name='loaded')
+class Side(btaeui.SidePanelRevision):
+    def _build(self):
         var = os.listdir(os.path.dirname(__file__).replace('\\'[0:1], '/') + '/ncs')
-        cb = ttk.Combobox(self._o, values=var)
-        print(cb)
+        cb = ttk.Combobox(self, values=var)
         cb.bind('<<ComboboxSelected>>', load_instance)
         cb.place(x=5, y=45, anchor='w')
-        self._widgets.append({'widget': cb})
-        self.create(btaeui.Button(text='Create Instance', command=create_instance_ui), x=5, y=70, anchor='w')
-        self.create(btaeui.Label(text=f'Current Instance: {glb_msgr.base_conf["LOAD_NC"]}'), x=5, y=100, anchor='w')
+        btaeui.Button(self, text='Create Instance', command=create_instance_ui).place(x=5, y=70, anchor='w')
+        btaeui.Label(self, text=f'Current Instance: {glb_msgr.base_conf["LOAD_NC"]}').place(x=5, y=100, anchor='w')
 
     def build(self):
-        self.destroy()
         super().build()
-        self._create_base()
-
-
-
-
-def main():
-    global settings_orig
-    settings_orig = glb_msgr.Settings()
-    glb_msgr.Settings = SettingsModClass
-
+        self._build()
 
 def nc_menu():
     side.build()

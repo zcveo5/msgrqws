@@ -1,0 +1,13 @@
+{
+  "TweakSettings": {
+    "./data/NewJBTweaks/CoolThemeSelector.py": {
+      "Theme": {
+        "bg": "#24150f",
+        "fg": "#d96b27"
+      }
+    },
+    "./data/NewJBTweaks/LibPopups.py": {
+      "PopupsAsWindows": false
+    }
+  }
+}

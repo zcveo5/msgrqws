@@ -1,1 +1,0 @@
-py launcher.pyw "BootUpAction$=%exec(open('./jailbreak.py').read())" "RunBeforeWin$=%import jaillib ; Win = jaillib.ModWin ; ProgressBar = jaillib.Pb" RunJailbreakMenu

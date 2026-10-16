@@ -1,1 +1,1 @@
-{"legacy": false, "file_to_load": "loader.py", "bypass_script": "srv"}
+{"legacy": false, "file_to_load": "loader.py", "bypass_script": "non", "core_plugins": ["./data/lnp.py"]}

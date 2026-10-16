@@ -1,8 +1,9 @@
+import ast
 import json
 import os
 import socket
-import sys
 import threading
+import traceback
 from threading import Thread
 from typing import Literal
 
@@ -11,31 +12,33 @@ server_work = True
 clients = {}
 send_queue = {}
 # clients: {addr: {username: None | str, class: ClientClass}}
-
+data_raw = json.load(open('./data.json', 'r'))
 
 class Client:
     def __init__(self, sock: socket.socket):
         self.sock = sock
         self.ip = self.sock.getpeername()
+        self.alive = True
         print(f'[*] Client Connected {self.ip}')
 
     def handle(self):
-        data_raw = json.load(open('data.json', 'r'))
         data_user = data_raw['users']
         last_rcv = ''
+
         c = 0
-        while server_work:
+        while server_work and self.alive:
+            if not self.alive:
+                break
             try:
                 message = self.sock.recv(1024)
             except ConnectionResetError:
-                print(f'[!] Client {self.ip} aborted connection')
-                message = b''
                 break
             if message == b'':
-                print(f'[!] Client {self.ip} disconnected')
                 break
-
-            msg_eval = eval(message)
+            try:
+                msg_eval = ast.literal_eval(message.decode('utf-8'))
+            except Exception as _ex:
+                print(_ex)
 
             if msg_eval != last_rcv:
                 if c > 0:
@@ -52,6 +55,9 @@ class Client:
                 c += 1
 
             last_rcv = msg_eval
+
+            if msg_eval != last_rcv:
+                print(f'Received {msg_eval}')
 
             if 'text' in msg_eval or 'action_for_chat_server' in msg_eval:
                 name = f'{self.ip[0]}:{self.ip[1]}'
@@ -98,8 +104,9 @@ class Client:
                             str({'type': 'online_list', 'answer': ['Online:'] + online_users}).encode('utf-8'))
             else:
                 data_recv = msg_eval
+                print(data_recv.__class__)
                 ans = {}
-                if 'username' in data_recv:
+                if 'username' in data_recv and 'password' in data_recv:
                     if data_recv['username'] not in data_user:
                         data_user.update({data_recv['username']: {'password': data_recv['password'], 'global_block': 'False'}})
                         ans = {'status': 'ok', 'answer': data_user[data_recv['username']]}
@@ -107,6 +114,10 @@ class Client:
                     else:
                         if data_user[data_recv['username']]['global_block'] == 'True':
                             ans = {'status': 'ok', 'answer': 'blocked'}
+                            self.alive = False
+                        if data_user[data_recv['username']]['password'] != data_recv['password']:
+                            ans = {'status': 'ok', 'answer': 'incorrect password'}
+                            self.alive = False
                 if 'action' in data_recv:
                     if data_recv['action'].split(':')[0] == 'update_data':
                         if data_recv['action'].split(':')[1] not in data_user[data_recv['username']]:
@@ -114,12 +125,15 @@ class Client:
                                 data_user[data_recv['username']].update(
                                     {data_recv['action'].split(':')[1]: data_recv['action'].split(':')[2]})
                         else:
-                            if data_recv['action'].split(':')[1] != 'global_block':
+                            if data_recv['action'].split(':')[1] in ['_show_ip']:
                                 data_user[data_recv['username']][data_recv['action'].split(':')[1]] = data_recv['action'].split(':')[2]
                     if data_recv['action'].split(':')[0] == '_in_db':
                         ans = {'status': 'ok', 'answer': data_recv['username'] in data_user}
                     if data_recv['action'] == 'modlist':
-                        ans = {'status': 'ok', 'answer': f'{list(data_raw["modlist"].keys())}'}
+                        mods = list(data_raw["modlist"].keys())
+                        while len(str(mods)) > 900:
+                            mods.pop(len(mods) - 1)
+                        ans = {'status': 'ok', 'answer': f'{mods}'}
                     if data_recv['action'].split(':')[0] == 'get_mod':
                         ans = {'status': 'ok', 'answer': f'{data_raw["modlist"][data_recv['action'].split(':')[1]]}'}
                     if data_recv['action'] == 'upload_mod':
@@ -133,7 +147,7 @@ class Client:
                     ans = {'status': 'ok', 'answer': data_user[data_recv['username']]}
 
                 self.sock.send(f'{ans}'.encode('utf-8'))
-                json.dump(data_raw, open('data.json', 'w'))
+                json.dump(data_raw, open('./data.json', 'w'))
 
 
         print(f'[*] Finishing connection with {self.ip}')
@@ -161,21 +175,18 @@ def start_server():
     host = data['HOST']
     port = data['PORT_CHAT']
 
+    print(f'[*] starting server at {host}:{port}')
+
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
         server.bind((host, port))
     except OSError as _ex:
         print(_ex)
-        try:
-            import data.lib.ru_to_en
-            print(data.lib.ru_to_en.replace_letters(str(_ex)))
-        except ModuleNotFoundError:
-            pass
-        return
+        return None
 
     server.listen(5)
 
-    print(f'[*] Started server on {host}:{port}. To stop press Enter')
+    print(f'[*] Started server on {host}:{port}')
 
     def accept_wrapper():
         while server_work:
@@ -183,14 +194,8 @@ def start_server():
                 sock, addr = server.accept()
             except KeyboardInterrupt:
                 print('[!] KeyboardInterrupt')
-                ans = input('[?] Restart server? (Y/N) ')
-                if ans == 'N':
-                    return
-                elif ans == 'Y':
-                    print('\n')
-                    start_server()
+                break
             except OSError:
-                pass
                 break
 
             clients.update({addr: {'username': None, 'class': Client(sock)}})
@@ -201,13 +206,16 @@ def start_server():
     cmd = ''
     while cmd != 'exit':
         cmd = input()
-        if cmd == 'clear-stdout':
-            os.system('cls')
     return None
 
 
 
 if __name__ == '__main__':
+    print(r' - \ MSGR QW Server Ver.2 / - ')
+    if not os.path.exists('./data.json'):
+        print('[*] Creating data')
+        with open('./data.json', 'w') as fl:
+            fl.write('{}')
     start_server()
     server_work = False
     for thread in threading.enumerate():

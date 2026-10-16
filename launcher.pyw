@@ -21,6 +21,7 @@ except ModuleNotFoundError:
 def excepthook(exc_type, exc_value=None, exc_traceback=None):
     tb_text = ''.join(traceback.format_exception(exc_type, exc_value, exc_traceback))
     print('===== TRACEBACK =====\n' + tb_text + f'\n===== END =====')
+    input()
     try:
         showerror(f'Error: {exc_type.__name__}', tb_text)
     except AttributeError:
@@ -78,10 +79,18 @@ files = ['msgr.py', 'loader.py',
          './plugins']
 py_ver = sys.version_info
 url_patches = "https://raw.githubusercontent.com/zcveo5/msgr-patches/main"
-url_main = "https://raw.githubusercontent.com/zcveo5/msgr-qw/main"
+url_main =    "https://raw.githubusercontent.com/zcveo5/msgr-qw/main"
+
+DISABLE_UPDATES = True
+
+if not DISABLE_UPDATES:
+    pass
+else:
+    libs = []
+    files = []
 
 for i in sys.argv:
-    if 'custom-update-connect' in i:
+    if 'custom-update-server' in i:
         url_main = i.split('==')[1]
 
 def download_patch(pyver, libn, save_path):

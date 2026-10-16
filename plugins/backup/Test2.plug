@@ -1,1 +1,1 @@
-#$#$SERcode&@app = None&@class Main:&@%TAB@staticmethod&@%TABdef give_data(v):&@%TAB%TABglobal app&@%TABapp = v&@%TAB@staticmethod&@%TABdef execute():&@%TABdef rui():&@%TAB%TABButton(app.main, text='HAHAHAHA').pack()&@%TAB%TABorig_rui()&@%TABorig_rui = app.reinit_ui&@%TABapp.reinit_ui = rui&@&@&@#$#$SERclass&@Main&@#$#$SERname&@Test2&@
+#$#$SERcode&@&@&@#$#$SERclass&@Enter plugin main_class&@#$#$SERname&@Test2&@

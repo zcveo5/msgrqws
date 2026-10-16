@@ -6,20 +6,15 @@ import time
 import traceback
 
 
-with open('./data/logs/plugin-api.log', 'w'):
-    pass
-
-
 def print_adv(v):
-    print(f'[{os.path.basename(os.path.abspath(__file__))}]{v}')
-    open('./data/logs/plugin-api.log', 'a', errors='replace').write(f'{v}\n')
+    pass
 
 
 def exec_plugs(_plugs):
     for key, value in _plugs.items():
         cur_mod = key
         try:
-            print_adv(f'[info] auto loading mod {key}')
+            print_adv(f'[info] loading mod {key}')
             st_time = time.time()
             value['plugin'].execute()
             fin_time = time.time()
@@ -58,6 +53,8 @@ def get_plugs(main_module):
             value['plugin'].give_data(mod)
             print_adv(f'[info] {key} pre-loaded')
         except AttributeError as preload_ex:
-            print_adv(f'[error] invalid plugin_MainThread {key}. details: {preload_ex}')
+            print_adv(f'[error] invalid pluginMainClass {key}. details: {preload_ex}')
+        except Exception:
+            print_adv(f'[error] invalid give_data call {key}')
     print_adv('[info] completed')
     return compiled_plugins

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/data/DATA.NC" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/data/locale/empt/locale.cfg" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/data/locale/ru/locale.cfg" charset="windows-1251" />
     <file url="file://$PROJECT_DIR$/data/locale/ru/locale_bac.cfg" charset="windows-1251" />
   </component>

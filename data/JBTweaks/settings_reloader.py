@@ -8,12 +8,6 @@ class SettingsReloaded(setts_orig):
         self._base_widgets.append(Button(self._o, text='JailBreak Tweak Reloader',
                                                 command=_main, bg=default_bg,
                                                 fg=default_fg, font=font_theme))
-    #def _create_base(self):
-    #    super()._create_base()
-    #    self.create(Button(self._o, text='JailBreak Tweak Reloader',
-    #                              command=_main, bg=default_bg,
-    #                              fg=default_fg, font=font_theme),
-    #                x=5, y=400, anchor='w')
 
 
 Settings = SettingsReloaded
@@ -29,10 +23,11 @@ def _main():
             return
         if name == '- Close -':
             w.place_forget()
+            return
         try:
             exec(open(f'./data/JBTweaks/{name}', 'r', errors='replace').read(), globals(), locals())
         except (FileNotFoundError, OSError):
-            return
+            pass
         w.place_forget()
     w = tkinter.Listbox(width=50, height=30, bg=default_bg, fg=default_fg)
     for i in ['Click on tweak you want to reload:'] + globals()['__JailBreakTweaks__'] + ['- Close -']:

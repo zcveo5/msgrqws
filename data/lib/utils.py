@@ -43,43 +43,8 @@ class Config:
             fl.write(_encoded)
         self._file = open(self._path, 'r', encoding=self._enc)
 
-    def __getitem__(self, item):
-        return self.get()[item]
-
-    def __setitem__(self, key, value):
-        self._update(key, value)
-class Config:
-    """Other Version of Config"""
-    def __init__(self, file, encoding='utf-8'):
-        self._path = file
-        self._enc = encoding
-        if not os.path.exists(file):
-            with open(file, 'w'):
-                pass
-        self._file = open(file, 'r', encoding=encoding)
-
-    def _update(self, key, value):
-        _data = self.get().copy()
-        _data.update({key: value})
-        self._commit(_data)
-
-    def get(self):
-        self._file.seek(0)
-        _data = self._file.read()
-        _decoded = {}
-        for _item in _data.split('\n'):
-            if is_str_not_empty(_item):
-                _decoded.update({_item.split(':')[0]: _item.split(':')[1]})
-        return _decoded
-
-    def _commit(self, _data):
-        _encoded = ''
-        for key, val in _data.items():
-            _encoded += f'{key}:{val}'
-            _encoded += '\n'
-        with open(self._path, 'w') as fl:
-            fl.write(_encoded)
-        self._file = open(self._path, 'r', encoding=self._enc)
+    def __contains__(self, item):
+        return item in self.get()
 
     def __getitem__(self, item):
         return self.get()[item]
@@ -90,10 +55,13 @@ class Config:
 
 class Log:
     """For sys.stdout/err replace. Emulate sys.stdout/err, writes into console (if available) and in file"""
-    def __init__(self, type_: str, file: TextIO, show_in_messagebox=False):
+    def __init__(self, type_: str, file: TextIO=None, show_in_messagebox=False):
         self.type_ = type_
         self.file = file
-        self.name = self.file.name
+        if file is not None:
+            self.name = self.file.name
+        else:
+            self.name = ''
         self.last_v = ''
         self.buffer = StringIO()
         self.show_in_messagebox = show_in_messagebox
@@ -106,10 +74,11 @@ class Log:
             repr_v = repr(v)[1:-1]
             if repr(v)[1:-1][len(repr_v) - 2:len(repr_v)] == r'\n':
                 v = v[:len(v) - 1]
-            try:
-                self.file.write(f'[{self.type_}]{data.lib.ru_to_en.replace_letters(v)}\n')
-            except UnicodeError:
-                self.file.write(f'[{self.type_}][loader] log_file_unsupported_encoding\n')
+            if self.file is not None:
+                try:
+                    self.file.write(f'[{self.type_}]{data.lib.ru_to_en.replace_letters(v)}\n')
+                except UnicodeError:
+                    self.file.write(f'[{self.type_}][loader] log_file_unsupported_encoding\n')
             self.last_v = v
             self.file.flush()
             self.buffer.write(f'[{self.type_}]{v}\n')
@@ -120,11 +89,10 @@ class Log:
                 pass
 
     def flush(self):
-        self.file.flush()
+        if self.file is not None:
+            self.file.flush()
 
     def read(self):
-        with open('./data/logs/buffer_read.log', 'w', errors='replace') as fl:
-            fl.write(self.buffer.getvalue())
         return self.buffer.getvalue()
 
 

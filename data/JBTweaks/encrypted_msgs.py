@@ -7,7 +7,7 @@ key = {'\n': '#', 'q': 'K', 'w': '4', 'e': 'G', 'r': '2', 't': 'O', 'y': '9', 'u
 def send_message_jb_em(event=None, is_private=False, **kw):
     pprint(event)
     try:
-        to_send = {'text': encrypt('$JBEM$-' + send_entry.get(), key), '_show_ip': bt_server_data[1]['answer']['_show_ip'], 'name': username}
+        to_send = {'text': encrypt('$JBEM$-' + send_entry.get("0.0", "end"), key), '_show_ip': bt_server_data[1]['answer']['_show_ip'], 'name': username}
     except KeyError:
         show('Error', 'Not connected to Auth connect')
         return
